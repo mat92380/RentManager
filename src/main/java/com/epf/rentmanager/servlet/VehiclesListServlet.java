@@ -1,5 +1,6 @@
 package com.epf.rentmanager.servlet;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ public class VehiclesListServlet extends HttpServlet {
             throws ServletException, IOException {
 
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(request, response);
+
         //permets de dire qu est ce qu on va envoyer vers la home servlet (homepage)
     }
 }

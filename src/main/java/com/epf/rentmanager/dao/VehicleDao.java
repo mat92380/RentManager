@@ -125,12 +125,7 @@ public class VehicleDao {
 			}
 			return vehicles;
 		}
-	public int count() throws DaoException {
-		//int counter =0;
-		List<Vehicle> vehicles = this.findAll();
-		System.out.println(vehicles.size());
-		return vehicles.size();
-	}
+
 
 	}
 	

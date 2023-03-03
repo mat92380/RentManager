@@ -131,12 +131,7 @@ public class ClientDao {
 		}
 		return clients;
 	}
-	public int count() throws DaoException {
-		//int counter =0;
-		List<Client> clients = this.findAll();
-		System.out.println(clients.size());
-		return clients.size();
-	}
+
 }
 
 

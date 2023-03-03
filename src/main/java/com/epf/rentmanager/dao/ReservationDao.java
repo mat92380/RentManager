@@ -163,11 +163,6 @@ public class ReservationDao {
 		}
 		return reservations;
 	}
-	public int count() throws DaoException {
-		//int counter =0;
-		List<Reservation> reservations = this.findAll();
-		//System.out.println(reservations.size());
-		return reservations.size();
-	}
+
 }
 

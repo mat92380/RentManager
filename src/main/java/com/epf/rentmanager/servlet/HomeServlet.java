@@ -23,20 +23,20 @@ public class HomeServlet extends HttpServlet {
 	/**
 	 * 
 	 */
-	private ClientDao clientDao = ClientDao.getInstance();
-	private VehicleDao vehicleDao = VehicleDao.getInstance();
-	private ReservationDao reservationDao = ReservationDao.getInstance();
+	private ClientService clientService = ClientService.getInstance();
+	private VehicleService vehicleService = VehicleService.getInstance();
+	private ReservationService reservationService = ReservationService.getInstance();
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		try{
-			request.setAttribute("nbClients", clientDao.count() );
-			request.setAttribute("nbVehicles", vehicleDao.count());
-			request.setAttribute("nbReservations", reservationDao.count());
+			request.setAttribute("nbClients", clientService.count() );
+			request.setAttribute("nbVehicles", vehicleService.count());
+			request.setAttribute("nbReservations", reservationService.count());
 
-		}catch (DaoException e ){
+		}catch (ServiceException e ){
 			e.printStackTrace();
 		}
 

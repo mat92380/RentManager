@@ -61,6 +61,11 @@ public class VehicleService {
 			throw new ServiceException();
 		}
 	}
-
+	public int count() throws ServiceException {
+		//int counter =0;
+		List<Vehicle> vehicles = this.findAll();
+		System.out.println(vehicles.size());
+		return vehicles.size();
+	}
 	
 }

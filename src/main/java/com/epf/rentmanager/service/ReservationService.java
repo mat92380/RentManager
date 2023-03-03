@@ -69,5 +69,10 @@ public class ReservationService {
             throw new ServiceException();
         }
     }
-
+    public int count() throws ServiceException {
+        //int counter =0;
+        List<Reservation> reservations = this.findAll();
+        //System.out.println(reservations.size());
+        return reservations.size();
+    }
 }
