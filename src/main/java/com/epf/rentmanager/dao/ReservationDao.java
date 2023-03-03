@@ -147,7 +147,7 @@ public class ReservationDao {
 			ResultSet rs = statement.executeQuery(FIND_RESERVATIONS_QUERY);
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				System.out.println(id);
+				//System.out.println(id);
 				int client_id = rs.getInt("client_id");
 				int vehicle_id = rs.getInt("vehicle_id");
 

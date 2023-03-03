@@ -14,7 +14,7 @@ import java.io.IOException;
 //une servlet par url
 
 @WebServlet("/cars")//Quand on va sur /home ca envoie vers la homepage grace à la servlet
-public class VehiclesListServlet extends HttpServlet {
+public class VehiclesListServlet extends HomeServlet {
     private static final long serialVersionUID = 1L;
     private VehicleService vehicleService = VehicleService.getInstance();
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

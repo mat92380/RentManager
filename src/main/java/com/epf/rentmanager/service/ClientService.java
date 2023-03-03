@@ -66,7 +66,7 @@ public class ClientService {
 	public int count() throws ServiceException {
 		//int counter =0;
 		List<Client> clients = this.findAll();
-		System.out.println(clients.size());
+		//System.out.println(clients.size());
 		return clients.size();
 	}
 }
