@@ -73,8 +73,12 @@ public class ClientDao {
 
 			ps.execute();
 			if (ps.executeUpdate() != 0) {
+				ps.close();
+				connection.close();
 				return 1;
 			} else {
+				ps.close();
+				connection.close();
 				return 0;
 			}
 
@@ -99,6 +103,8 @@ public class ClientDao {
 				String prenom = rs.getString("prenom");
 				String email = rs.getString("email");
 				LocalDate naissance = rs.getDate("naissance").toLocalDate();
+				pstatement.close();
+				connection.close();
 				return new Client( (int) id, nom, prenom, email, naissance);
 
 
@@ -124,11 +130,14 @@ public class ClientDao {
 				LocalDate naissance = rs.getDate("naissance").toLocalDate();
 				clients.add(new Client(id, nom,prenom,email,naissance));
 			}
+			statement.close();
+			connection.close();
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new DaoException();
 
 		}
+
 		return clients;
 	}
 

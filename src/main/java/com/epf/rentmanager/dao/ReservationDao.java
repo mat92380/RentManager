@@ -71,8 +71,12 @@ public class ReservationDao {
 
 			ps.execute();
 			if (ps.executeUpdate() != 0) {
+				ps.close();
+				connection.close();
 				return 1;
 			} else {
+				ps.close();
+				connection.close();
 				return 0;
 			}
 
@@ -104,11 +108,14 @@ public class ReservationDao {
 				reservations.add(new Reservation(id, (int) clientId, vehicle_id, debut, fin)) ;
 
 			}
+			pstatement.close();
+			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DaoException();
 
 		}
+
 		return reservations;
 	}
 	
@@ -130,6 +137,8 @@ public class ReservationDao {
 				reservations.add(new Reservation(id, client_id, (int)vehicleId, debut, fin)) ;
 
 			}
+			pstatement.close();
+			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DaoException();
@@ -156,6 +165,8 @@ public class ReservationDao {
 				//System.out.println(new Reservation(id, client_id, (int)vehicle_id, debut, fin));
 				reservations.add(new Reservation(id, client_id, vehicle_id, debut, fin));
 			}
+			statement.close();
+			connection.close();
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new DaoException();

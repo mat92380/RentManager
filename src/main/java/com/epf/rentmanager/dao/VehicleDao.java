@@ -69,8 +69,12 @@ public class VehicleDao {
 
 			ps.execute();
 			if (ps.executeUpdate() != 0) {
+				ps.close();
+				connection.close();
 				return 1;
 			} else {
+				ps.close();
+				connection.close();
 				return 0;
 			}
 
@@ -94,7 +98,8 @@ public class VehicleDao {
 			String constructeur = rs.getString("constructeur");
 			int nb_Places = rs.getInt("nb_Places");
 
-
+			pstatement.close();
+			connection.close();
 			return new Vehicle( (int) id, constructeur, nb_Places);
 
 
@@ -118,6 +123,8 @@ public class VehicleDao {
 				int nb_Places = rs.getInt("nb_Places");
 				vehicles.add(new Vehicle(id, constructeur, nb_Places));
 			}
+			statement.close();
+			connection.close();
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new DaoException();

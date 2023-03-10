@@ -18,6 +18,9 @@ public class Reservation {
         this.debut = debut;
         this.fin = fin;
     }
+    public Reservation(){
+
+    }
 
 
     public int getId() {
