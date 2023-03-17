@@ -1,8 +1,11 @@
 package com.epf.rentmanager.model;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.Date;
-
+@Service
 public class Reservation {
     private int id;
     private int client_id;

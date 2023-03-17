@@ -8,30 +8,38 @@ import com.epf.rentmanager.dao.VehicleDao;
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ClientService {
-
+	@Autowired
 	private ClientDao clientDao;
-	public static ClientService instance;
+	//public static ClientService instance;
 
 
-	private ClientService() {
+	/*private ClientService() {
 		this.clientDao = ClientDao.getInstance();
-	}
-	
-	public static ClientService getInstance() {
+	}*/
+	private ClientService(ClientDao clientDao){
+		this.clientDao = clientDao;}
+
+	private ClientService(){
+		}
+	/*public static ClientService getInstance() {
 		if (instance == null) {
 			instance = new ClientService();
 		}
 		
 		return instance;
-	}
+	}*/
 	
 	
 	public long create(Client client) throws ServiceException {
 		// TODO: créer un client
 		try {
-			return ClientDao.getInstance().create(client);
+			return clientDao.create(client);
 
 		} catch (DaoException e) {
 			e.printStackTrace();
@@ -43,8 +51,17 @@ public class ClientService {
 	public Client findById(long id) throws ServiceException {
 		// TODO: récupérer un client par son id
 		try {
-			return ClientDao.getInstance().findById(id);
+			return clientDao.findById(id);
 
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new ServiceException();
+		}
+	}
+	public long delete(Client client) throws ServiceException {
+			// TODO: supprimer un client
+		try {
+			return clientDao.delete(client);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new ServiceException();
@@ -55,7 +72,7 @@ public class ClientService {
 	public List<Client> findAll() throws ServiceException {
 		// TODO: récupérer tous les clients
 		try {
-			return ClientDao.getInstance().findAll();
+			return clientDao.findAll();
 
 		} catch (DaoException e) {
 			e.printStackTrace();
