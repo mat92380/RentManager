@@ -47,7 +47,7 @@ public class VehiclesCreateServlet extends VehiclesListServlet{
             e.printStackTrace();
         }
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
-
+        response.sendRedirect("/rentmanager/cars");
         }
 
     }

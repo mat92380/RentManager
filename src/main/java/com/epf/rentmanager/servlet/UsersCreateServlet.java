@@ -53,6 +53,6 @@ public class UsersCreateServlet extends HttpServlet{
             e.printStackTrace();
         }
         //this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
-        response.sendRedirect("/rentmanager/users/create");
+        response.sendRedirect("/rentmanager/users");
     }
     }
