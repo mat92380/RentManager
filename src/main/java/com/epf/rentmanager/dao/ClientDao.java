@@ -62,18 +62,18 @@ public class ClientDao {
 
 	}
 	
-	public long delete(Client client) throws DaoException {
-		try (Connection connection = ConnectionManager.getConnection()){
-
+	public long delete(int id_client) throws DaoException {
+		try {
+			Connection connection = ConnectionManager.getConnection();
 			PreparedStatement ps =
 					connection.prepareStatement(DELETE_CLIENT_QUERY, Statement.RETURN_GENERATED_KEYS);
 
 
 			PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CLIENT_QUERY);
-			preparedStatement.setInt(1, client.getId()); // ATTENTION /!\ : l’indice commence par 1, contrairement aux tableaux
-			preparedStatement.execute();
+			preparedStatement.setInt(1, id_client); // ATTENTION /!\ : l’indice commence par 1, contrairement aux tableaux
+			preparedStatement.executeUpdate();
 
-			ps.execute();
+			/*ps.execute();*/
 			if (ps.executeUpdate() != 0) {
 				ps.close();
 				connection.close();

@@ -1,5 +1,6 @@
 package com.epf.rentmanager.servlet;
 
+import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -13,10 +14,10 @@ import java.io.IOException;
 
 @WebServlet("/users/delete")
 public class UserDeleteServlet extends HttpServlet {
-    @Autowired
 
-    //ClientService clientService= ClientService.getInstance();;
-    ClientService clientService;
+
+    @Autowired
+    private ClientService clientService;
     @Override
     public void init() throws ServletException {
         super.init();
@@ -25,7 +26,12 @@ public class UserDeleteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-
+        try {
+            clientService.delete(Integer.parseInt(request.getParameter("id").toString()));
+        } catch (NumberFormatException | ServiceException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        response.sendRedirect("../users");
     }
 }

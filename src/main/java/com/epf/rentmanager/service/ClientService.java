@@ -25,7 +25,7 @@ public class ClientService {
 	private ClientService(ClientDao clientDao){
 		this.clientDao = clientDao;}
 
-	private ClientService(){
+	public ClientService(){
 		}
 	/*public static ClientService getInstance() {
 		if (instance == null) {
@@ -58,10 +58,10 @@ public class ClientService {
 			throw new ServiceException();
 		}
 	}
-	public long delete(Client client) throws ServiceException {
+	public long delete(int id_client) throws ServiceException {
 			// TODO: supprimer un client
 		try {
-			return clientDao.delete(client);
+			return clientDao.delete(id_client);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new ServiceException();
