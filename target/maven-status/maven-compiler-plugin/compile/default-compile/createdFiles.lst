@@ -12,6 +12,7 @@ com\epf\rentmanager\model\WebConfiguration.class
 com\epf\rentmanager\servlet\VehiclesListServlet.class
 com\epf\rentmanager\servlet\RentsCreateServlet.class
 com\epf\rentmanager\servlet\VehicleDeleteServlet.class
+com\epf\rentmanager\servlet\RentsUpdateServlet.class
 com\epf\rentmanager\servlet\VehiclesCreateServlet.class
 com\epf\rentmanager\servlet\UsersDetailsServlet.class
 com\epf\rentmanager\model\Client.class

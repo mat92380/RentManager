@@ -53,6 +53,17 @@ public class ReservationService {
         }
 
     }
+    public Reservation findById(int Id) throws ServiceException {
+        // TODO: récupérer un véhicule par son id
+        try {
+            return reservationDao.findById(Id);
+
+        } catch (DaoException e) {
+            e.printStackTrace();
+            throw new ServiceException();
+        }
+
+    }
     public List<Reservation> findResaByVehicleId(long vehicleId) throws ServiceException {
         // TODO: récupérer un véhicule par son id
         try {
@@ -68,6 +79,17 @@ public class ReservationService {
         // TODO: créer un véhicule
         try {
             return reservationDao.delete(reservation_id);
+
+        } catch (DaoException e) {
+            e.printStackTrace();
+            throw new ServiceException();
+        }
+
+    }
+    public long edit(Reservation reservation) throws ServiceException {
+        // TODO: créer un véhicule
+        try {
+            return reservationDao.edit(reservation);
 
         } catch (DaoException e) {
             e.printStackTrace();

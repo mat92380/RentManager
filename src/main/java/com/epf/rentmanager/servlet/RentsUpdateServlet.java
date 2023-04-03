@@ -1,5 +1,7 @@
 package com.epf.rentmanager.servlet;
+
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
@@ -8,6 +10,7 @@ import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,46 +20,48 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-@WebServlet("/rents/create")//Quand on va sur /home ca envoie vers la homepage grace à la servlet
-public class RentsCreateServlet extends HomeServlet{
-
-    private static final long serialVersionUID = 1L;
-    /*private VehicleService vehicleService = VehicleService.getInstance();
-    private ClientService clientService = ClientService.getInstance();
-    private ReservationService reservationService = ReservationService.getInstance();*/
+@WebServlet("/rents/update")
+public class RentsUpdateServlet extends HttpServlet {
+    @Autowired
+    private ReservationService reservationService;
     @Autowired
     private VehicleService vehicleService;
     @Autowired
     private ClientService clientService;
-    @Autowired
-    private ReservationService reservationService;
-
-    @Override
+    private static final long serialVersionUID = 1L;
     public void init() throws ServletException {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);}
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-
+        final RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/rents/update.jsp");
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            /*System.out.println(id);
+            System.out.println("res"+reservationService.findById(id));*/
             request.setAttribute("vehicles", vehicleService.findAll());
             ArrayList<Vehicle> vehicles = new ArrayList<>();
             //vehicles = vehicleService.findAll()
             request.setAttribute("clients", clientService.findAll());
-            System.out.println();
 
-        }catch (ServiceException e ){
-            e.printStackTrace();
+            request.setAttribute("rents", reservationService.findById(id));
+
+        } catch (final Exception e) {
+            System.out.println(e.getMessage());
         }
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
-        //permets de dire qu est ce qu on va envoyer vers la home servlet (homepage)
+        dispatcher.forward(request, response);
+
+        //response.sendRedirect("../cars/update");
+
+        //response.sendRedirect("../users/update");
     }
-    protected void doPost(HttpServletRequest request, HttpServletResponse
-            response) throws ServletException, IOException {
-// traitement du formulaire (appel à la méthode de sauvegarde)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         try {
             final Reservation reservation = new Reservation();
+            String idc = request.getParameter("id");
+            int id = Integer.parseInt(idc);
+            System.out.println("id  "+ idc);
             int idclient = Integer.parseInt(request.getParameter("client"));
             int idvoiture =  Integer.parseInt(request.getParameter("car"));
             LocalDate datedebut = LocalDate.parse(request.getParameter("begin"));
@@ -65,16 +70,19 @@ public class RentsCreateServlet extends HomeServlet{
             reservation.setVehicle_id(idvoiture);
             reservation.setDebut(datedebut);
             reservation.setFin(datefin);
-            reservationService.create(reservation);
+            reservation.setId(id);
+            System.out.println(reservation);
+
+            reservationService.edit(reservation);
 
 
 
-        }catch (ServiceException e ){
+        } catch (ServiceException e) {
             e.printStackTrace();
         }
 
-        //this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
-        response.sendRedirect("/rentmanager/rents");
+        //this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/details.jsp").forward(request, response);
+        //permets de dire qu est ce qu on va envoyer vers la home servlet (homepage)
+        response.sendRedirect("../rents");
     }
-
 }

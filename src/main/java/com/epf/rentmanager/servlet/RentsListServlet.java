@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 @WebServlet("/rents")//Quand on va sur /home ca envoie vers la homepage grace à la servlet
 public class RentsListServlet extends HttpServlet{
-    @Autowired
+
     private static final long serialVersionUID = 1L;
    /* private ReservationService reservationService = ReservationService.getInstance();
     private ClientService clientService = ClientService.getInstance();

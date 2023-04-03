@@ -76,6 +76,6 @@ public class UserUpdateServlet extends HttpServlet {
 
         //this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/details.jsp").forward(request, response);
         //permets de dire qu est ce qu on va envoyer vers la home servlet (homepage)
-        response.sendRedirect("/rentmanager/users");
+        response.sendRedirect("/rentmanager/rents");
     }
 }
