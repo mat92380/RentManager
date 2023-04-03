@@ -47,6 +47,17 @@ public class ClientService {
 		}
 
 	}
+	public long edit(Client client) throws ServiceException {
+		// TODO: mettre à jour un client
+		try {
+			return clientDao.edit(client);
+
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new ServiceException();
+		}
+
+	}
 
 	public Client findById(long id) throws ServiceException {
 		// TODO: récupérer un client par son id

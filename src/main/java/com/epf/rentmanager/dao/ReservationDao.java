@@ -8,11 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
+import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -61,7 +63,7 @@ public class ReservationDao {
 		}
 	}
 	
-	public long delete(Reservation reservation) throws DaoException {
+	public long delete(int id_reservation) throws DaoException {
 		try (Connection connection = ConnectionManager.getConnection()){
 
 			PreparedStatement ps =
@@ -69,7 +71,7 @@ public class ReservationDao {
 
 
 			PreparedStatement preparedStatement = connection.prepareStatement(DELETE_RESERVATION_QUERY);
-			preparedStatement.setInt(1, reservation.getId()); // ATTENTION /!\ : l’indice commence par 1, contrairement aux tableaux
+			preparedStatement.setInt(1, id_reservation); // ATTENTION /!\ : l’indice commence par 1, contrairement aux tableaux
 			preparedStatement.execute();
 
 			ps.execute();
@@ -177,6 +179,7 @@ public class ReservationDao {
 		}
 		return reservations;
 	}
+
 
 }
 

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 @WebServlet("/cars/create")//Quand on va sur /home ca envoie vers la homepage grace à la servlet
 public class VehiclesCreateServlet extends VehiclesListServlet{
-    @Autowired
+
     private static final long serialVersionUID = 1L;
     //private VehicleService vehicleService = VehicleService.getInstance();
     @Autowired
@@ -40,13 +40,13 @@ public class VehiclesCreateServlet extends VehiclesListServlet{
                 int nb_Places = Integer.parseInt(request.getParameter("seats"));
                 vehicle.setConstructeur(constructeur);
                 vehicle.setNb_place(nb_Places);
-                System.out.println(vehicle);
+                //System.out.println(vehicle);
                 vehicleService.create(vehicle);
 
         }catch (ServiceException e ){
             e.printStackTrace();
         }
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
+        //this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
         response.sendRedirect("/rentmanager/cars");
         }
 

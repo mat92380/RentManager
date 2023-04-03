@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 @Service
 public class ReservationService {
@@ -63,6 +64,17 @@ public class ReservationService {
         }
 
     }
+    public long delete(int reservation_id) throws ServiceException {
+        // TODO: créer un véhicule
+        try {
+            return reservationDao.delete(reservation_id);
+
+        } catch (DaoException e) {
+            e.printStackTrace();
+            throw new ServiceException();
+        }
+
+    }
     public List<Reservation> findAll() throws ServiceException {
         // TODO: récupérer tous les reservations
         try {
@@ -78,5 +90,23 @@ public class ReservationService {
         List<Reservation> reservations = this.findAll();
         //System.out.println(reservations.size());
         return reservations.size();
+    }
+    public List<Integer> findvehiclebyIdclientwithresa(int id_client){
+
+        try {
+            List<Reservation> reservations  = reservationDao.findAll();
+            List<Integer> listidvehicle = Collections.emptyList();
+            for (Reservation reservation : reservations) {
+                if (reservation.getClient_id()==id_client) {
+                    listidvehicle.add(reservation.getVehicle_id());
+                    System.out.println(listidvehicle);
+                }
+            }
+            return listidvehicle;
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 }

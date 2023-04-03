@@ -30,7 +30,11 @@ public class VehicleDao {
 	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLE_QUERY = "SELECT id, constructeur, nb_places FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, nb_places FROM Vehicle;";
-	
+	private static final String UPDATE_VEHICLE_QUERY = "UPDATE Vehicle SET constructeur=?, nb_places=? WHERE id=?;";
+	private static final String FIND_VEHICLES_BY_CLIENT = "SELECT * FROM Vehicle INNER JOIN Reservation ON Reservation.vehicle_id=Vehicle.id WHERE Reservation.client_id=?;";
+
+
+
 	public long create(Vehicle vehicle) throws DaoException {
 		try {
 			Connection connection = ConnectionManager.getConnection();
@@ -52,6 +56,27 @@ public class VehicleDao {
 			ps.close();
 			connection.close();
 			return id;
+		} catch (SQLException e) {
+			throw new DaoException();
+		}
+
+	}
+	public long edit(Vehicle vehicle) throws DaoException {
+		try {
+			Connection connection = ConnectionManager.getConnection();
+			PreparedStatement ps =
+					connection.prepareStatement(UPDATE_VEHICLE_QUERY);
+
+			ps.setString(1, vehicle.getConstructeur());
+			ps.setString(2, Integer.toString(vehicle.getNb_place()));
+			ps.setInt(3,vehicle.getId());
+
+			ps.executeUpdate();
+
+			ps.close();
+			connection.close();
+			return ps.executeUpdate();
+
 		} catch (SQLException e) {
 			throw new DaoException();
 		}
@@ -135,7 +160,29 @@ public class VehicleDao {
 			return vehicles;
 		}
 
+	public List<Vehicle> findByClientId(long client_id) throws DaoException {
+		List<Vehicle> vehicles = new ArrayList<Vehicle>();
+		try (
+				Connection connection = ConnectionManager.getConnection();
+				PreparedStatement pstatement = connection.prepareStatement(FIND_VEHICLES_BY_CLIENT);
 
+
+		) {
+			pstatement.setLong(1, client_id);
+			ResultSet resultSet = pstatement.executeQuery();
+			while(resultSet.next())
+				pstatement.setLong(1, client_id);
+			ResultSet rs = pstatement.executeQuery();
+			while(rs.next())
+				vehicles.add(new Vehicle(rs.getInt("id"), rs.getString("constructeur"),rs.getInt("nb_places")));
+
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DaoException();
+
+		}
+		return vehicles;
+	}
 	}
 	
 

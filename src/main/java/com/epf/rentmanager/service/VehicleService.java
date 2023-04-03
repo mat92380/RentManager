@@ -53,6 +53,17 @@ public class VehicleService {
 		}
 
 	}
+	public long edit(Vehicle vehicle) throws ServiceException {
+		// TODO: modifier un véhicule
+		try {
+			return vehicleDao.edit(vehicle);
+
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new ServiceException();
+		}
+
+	}
 
 	public Vehicle findById(long id) throws ServiceException {
 		// TODO: récupérer un véhicule par son id
@@ -82,5 +93,15 @@ public class VehicleService {
 		//System.out.println(vehicles.size());
 		return vehicles.size();
 	}
-	
+
+	public List<Vehicle> findByClientId(int client_id) throws ServiceException {
+		// TODO: récupérer tous les clients
+		try {
+			return vehicleDao.findByClientId(client_id);
+
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new ServiceException();
+		}
+	}
 }

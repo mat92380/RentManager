@@ -73,8 +73,8 @@ public class RentsCreateServlet extends HomeServlet{
             e.printStackTrace();
         }
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
-
+        //this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
+        response.sendRedirect("../rents");
     }
 
 }

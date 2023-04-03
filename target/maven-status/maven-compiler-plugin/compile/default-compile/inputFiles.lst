@@ -3,6 +3,7 @@ D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\model\Vehicle.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\utils\IOUtils.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\persistence\ConnectionManager.java
+D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehicleUpdateServlet.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\exception\DaoException.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehiclesListServlet.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\RentsCreateServlet.java
@@ -10,6 +11,7 @@ D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\model\Reservation.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\UsersDetailsServlet.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\dao\VehicleDao.java
+D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\RentDeleteServlet.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\UserDeleteServlet.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehiclesCreateServlet.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\exception\ServiceException.java
@@ -24,4 +26,5 @@ D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\HomeServlet.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\ui\test.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\model\AppConfiguration.java
+D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\UserUpdateServlet.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\dao\ClientDao.java
