@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 @Service
 
@@ -71,6 +72,14 @@ public class Client {
 
     public void setNaissance(LocalDate naissance) {
         this.naissance = naissance;
+    }
+    public int getAge(){
+        LocalDate naissance = this.getNaissance();
+        if(naissance!=null){
+            return Period.between(naissance,LocalDate.now()).getYears();
+        }else{
+            return 0;
+        }
     }
 
     @Override

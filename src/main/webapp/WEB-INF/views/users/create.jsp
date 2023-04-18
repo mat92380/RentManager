@@ -53,7 +53,9 @@
 
                                                                     <div class="col-sm-10">
                                                                         <input type="date" class="form-control" id="naissance" name="naissance" placeholder="Naissance">
+                                                                         <label for="mssgerreurage"  id="mssgerreurage" >Vous devez etre majeur</label>
                                                                     </div>
+
                                                                 </div>
                             </div>
                             <!-- /.box-body -->

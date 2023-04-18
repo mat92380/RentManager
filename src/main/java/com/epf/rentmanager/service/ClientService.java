@@ -69,6 +69,16 @@ public class ClientService {
 			throw new ServiceException();
 		}
 	}
+	public Client findBymail(String email) throws ServiceException {
+		// TODO: récupérer un client par son mail
+		try {
+			return clientDao.findBymail(email);
+
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new ServiceException();
+		}
+	}
 	public long delete(int id_client) throws ServiceException {
 			// TODO: supprimer un client
 		try {

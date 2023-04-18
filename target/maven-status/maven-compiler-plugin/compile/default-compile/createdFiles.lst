@@ -1,10 +1,13 @@
+com\epf\rentmanager\validateur\ValidateurReservation.class
 com\epf\rentmanager\servlet\RentsListServlet.class
 com\epf\rentmanager\model\Reservation.class
+com\epf\rentmanager\validateur\ValidateurVehicule.class
 com\epf\rentmanager\exception\DaoException.class
 com\epf\rentmanager\exception\ServiceException.class
 com\epf\rentmanager\servlet\RentDeleteServlet.class
 com\epf\rentmanager\model\Vehicle.class
 com\epf\rentmanager\servlet\UsersListServlet.class
+com\epf\rentmanager\validateur\ValidateurClient.class
 com\epf\rentmanager\servlet\UsersCreateServlet.class
 com\epf\rentmanager\servlet\UserUpdateServlet.class
 com\epf\rentmanager\servlet\VehicleUpdateServlet.class

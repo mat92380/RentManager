@@ -2,6 +2,8 @@ package com.epf.rentmanager.servlet;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.VehicleService;
+import com.epf.rentmanager.validateur.ValidateurClient;
+import com.epf.rentmanager.validateur.ValidateurVehicule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -41,13 +43,22 @@ public class VehiclesCreateServlet extends VehiclesListServlet{
                 vehicle.setConstructeur(constructeur);
                 vehicle.setNb_place(nb_Places);
                 //System.out.println(vehicle);
-                vehicleService.create(vehicle);
+                if (ValidateurVehicule.nmbrplaceisvalid(vehicle)){
+                    vehicleService.create(vehicle);
+                    response.sendRedirect("/rentmanager/cars");
+                }
+                else{
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    String errorMessage = "Mauvais nombre de place";
+                    response.getWriter().write(errorMessage);
+                }
+
 
         }catch (ServiceException e ){
             e.printStackTrace();
         }
         //this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
-        response.sendRedirect("/rentmanager/cars");
+
         }
 
     }

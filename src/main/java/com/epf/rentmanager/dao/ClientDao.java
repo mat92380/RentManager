@@ -33,6 +33,7 @@ public class ClientDao {
 	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";
 	private static final String FIND_CLIENT_QUERY = "SELECT nom, prenom, email, naissance FROM Client WHERE id=?;";
+	private static final String FIND_CLIENTBYMAIL_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client WHERE email=?;";
 	private static final String FIND_CLIENTS_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client;";
 	private static final String UPDATE_CLIENT_QUERY = "UPDATE Client SET nom=?, prenom=?, email=?, naissance=? WHERE id=?;";
 	
@@ -108,7 +109,6 @@ public class ClientDao {
 				return 0;
 			}
 
-
 		}
 		catch (SQLException e) {
 			throw new DaoException();
@@ -140,7 +140,29 @@ public class ClientDao {
 
 		}
 	}
+	public Client findBymail(String email) throws DaoException {
+		try {
+			Connection connection = ConnectionManager.getConnection();
+			PreparedStatement pstatement = connection.prepareStatement(FIND_CLIENTBYMAIL_QUERY);
+			pstatement.setString(1,email);
+			ResultSet rs = pstatement.executeQuery();
+			rs.next();
+			int id = rs.getInt("id");
 
+			String nom = rs.getString("nom");
+			String prenom = rs.getString("prenom");
+			LocalDate naissance = rs.getDate("naissance").toLocalDate();
+			pstatement.close();
+			connection.close();
+			return new Client( (int) id, nom, prenom, email, naissance);
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException();
+
+		}
+	}
 
 	public List<Client> findAll() throws DaoException {
 		List<Client> clients = new ArrayList<Client>();

@@ -13,8 +13,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
 import java.io.IOException;
 import java.time.LocalDate;
+
 
 @WebServlet("/users/update")
 public class UserUpdateServlet extends HttpServlet {
@@ -49,6 +52,7 @@ public class UserUpdateServlet extends HttpServlet {
 
         try {
             final Client client = new Client();
+
             String idc = request.getParameter("id");
             System.out.println("idc "+idc);
             int id = Integer.parseInt(idc);

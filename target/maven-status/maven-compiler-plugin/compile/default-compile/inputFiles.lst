@@ -1,11 +1,13 @@
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\model\Client.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\RentsListServlet.java
+D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\validateur\ValidateurReservation.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\model\Vehicle.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\utils\IOUtils.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\persistence\ConnectionManager.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehicleUpdateServlet.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\exception\DaoException.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehiclesListServlet.java
+D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\validateur\ValidateurClient.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\RentsCreateServlet.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\dao\ReservationDao.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\model\Reservation.java
@@ -20,6 +22,7 @@ D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\UsersCreateServlet.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\model\WebConfiguration.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\UsersListServlet.java
+D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\validateur\ValidateurVehicule.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\service\VehicleService.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\service\ClientService.java
 D:\EPF\EPF_4A\Langage Java\projet\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehicleDeleteServlet.java
