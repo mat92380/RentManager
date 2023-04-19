@@ -75,11 +75,11 @@ public class ClientDao {
 			ps.setDate(4, Date.valueOf(client.getNaissance()));
 			ps.setInt(5,client.getId());
 
-			ps.executeUpdate();
+			long pse = ps.executeUpdate();
 
 			ps.close();
 			connection.close();
-			return ps.executeUpdate();
+			return pse;
 
 		} catch (SQLException e) {
 			throw new DaoException();
@@ -91,23 +91,16 @@ public class ClientDao {
 		try {
 			Connection connection = ConnectionManager.getConnection();
 			PreparedStatement ps =
-					connection.prepareStatement(DELETE_CLIENT_QUERY, Statement.RETURN_GENERATED_KEYS);
+					 connection.prepareStatement(DELETE_CLIENT_QUERY);
 
 
-			PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CLIENT_QUERY);
-			preparedStatement.setInt(1, id_client); // ATTENTION /!\ : l’indice commence par 1, contrairement aux tableaux
-			preparedStatement.executeUpdate();
+
+			ps.setInt(1, id_client); // ATTENTION /!\ : l’indice commence par 1, contrairement aux tableaux
+
+			return ps.executeUpdate();
 
 			/*ps.execute();*/
-			if (ps.executeUpdate() != 0) {
-				ps.close();
-				connection.close();
-				return 1;
-			} else {
-				ps.close();
-				connection.close();
-				return 0;
-			}
+
 
 		}
 		catch (SQLException e) {

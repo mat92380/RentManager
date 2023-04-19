@@ -71,11 +71,11 @@ public class VehicleDao {
 			ps.setString(2, Integer.toString(vehicle.getNb_place()));
 			ps.setInt(3,vehicle.getId());
 
-			ps.executeUpdate();
+			long pse = ps.executeUpdate();
 
 			ps.close();
 			connection.close();
-			return ps.executeUpdate();
+			return pse;
 
 		} catch (SQLException e) {
 			throw new DaoException();
@@ -87,12 +87,12 @@ public class VehicleDao {
 		try (Connection connection = ConnectionManager.getConnection()){
 
 			PreparedStatement ps =
-					connection.prepareStatement(DELETE_VEHICLE_QUERY, Statement.RETURN_GENERATED_KEYS);
+					connection.prepareStatement(DELETE_VEHICLE_QUERY);
 
 
-			PreparedStatement preparedStatement = connection.prepareStatement(DELETE_VEHICLE_QUERY);
-			preparedStatement.setInt(1, vehicle_id); // ATTENTION /!\ : l’indice commence par 1, contrairement aux tableaux
-			preparedStatement.execute();
+
+			ps.setInt(1, vehicle_id); // ATTENTION /!\ : l’indice commence par 1, contrairement aux tableaux
+			ps.execute();
 
 			ps.execute();
 			if (ps.executeUpdate() != 0) {

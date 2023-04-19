@@ -37,8 +37,7 @@ public class RentsUpdateServlet extends HttpServlet {
         final RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/rents/update.jsp");
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            /*System.out.println(id);
-            System.out.println("res"+reservationService.findById(id));*/
+
             request.setAttribute("vehicles", vehicleService.findAll());
             ArrayList<Vehicle> vehicles = new ArrayList<>();
             //vehicles = vehicleService.findAll()
@@ -61,7 +60,7 @@ public class RentsUpdateServlet extends HttpServlet {
             final Reservation reservation = new Reservation();
             String idc = request.getParameter("id");
             int id = Integer.parseInt(idc);
-            System.out.println("id  "+ idc);
+
             int idclient = Integer.parseInt(request.getParameter("client"));
             int idvoiture =  Integer.parseInt(request.getParameter("car"));
             LocalDate datedebut = LocalDate.parse(request.getParameter("begin"));
@@ -71,7 +70,7 @@ public class RentsUpdateServlet extends HttpServlet {
             reservation.setDebut(datedebut);
             reservation.setFin(datefin);
             reservation.setId(id);
-            System.out.println(reservation);
+
 
             reservationService.edit(reservation);
 

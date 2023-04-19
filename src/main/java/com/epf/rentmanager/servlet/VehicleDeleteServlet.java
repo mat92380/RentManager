@@ -26,7 +26,7 @@ public class VehicleDeleteServlet extends HttpServlet {
         try {
             vehicleService.delete(Integer.parseInt(request.getParameter("id")));
         } catch (NumberFormatException | ServiceException e) {
-            System.out.println(e.getMessage());
+
             e.printStackTrace();
         }
         response.sendRedirect("../cars");

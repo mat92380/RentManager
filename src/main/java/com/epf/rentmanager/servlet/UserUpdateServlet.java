@@ -54,9 +54,9 @@ public class UserUpdateServlet extends HttpServlet {
             final Client client = new Client();
 
             String idc = request.getParameter("id");
-            System.out.println("idc "+idc);
+
             int id = Integer.parseInt(idc);
-            System.out.println("id "+id);
+
             String nom = request.getParameter("last_name");
            /* System.out.println(nom);*/
             String prenom = request.getParameter("first_name");
@@ -71,7 +71,7 @@ public class UserUpdateServlet extends HttpServlet {
             client.setPrenom(prenom);
             client.setEmail(email);
             client.setNaissance(naissance);
-            System.out.println(client);
+            
             clientService.edit(client);
 
         } catch (ServiceException e) {
@@ -80,6 +80,6 @@ public class UserUpdateServlet extends HttpServlet {
 
         //this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/details.jsp").forward(request, response);
         //permets de dire qu est ce qu on va envoyer vers la home servlet (homepage)
-        response.sendRedirect("/rentmanager/rents");
+        response.sendRedirect("/rentmanager/users");
     }
 }

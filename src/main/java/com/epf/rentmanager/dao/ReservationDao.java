@@ -67,17 +67,17 @@ public class ReservationDao {
 			PreparedStatement ps =
 					connection.prepareStatement(UPDATE_RESERVATION_QUERY);
 
-			ps.setString(1, String.valueOf(reservation.getClient_id()));
-			ps.setString(2, String.valueOf(reservation.getVehicle_id()));
-			ps.setString(3, String.valueOf(Date.valueOf(reservation.getDebut())));
+			ps.setInt(1, reservation.getClient_id());
+			ps.setInt(2, reservation.getVehicle_id());
+			ps.setDate(3, Date.valueOf(reservation.getDebut()));
 			ps.setDate(4, Date.valueOf(reservation.getFin()));
 			ps.setInt(5,reservation.getId());
 
-			ps.executeUpdate();
+			long pse = ps.executeUpdate();
 
 			ps.close();
 			connection.close();
-			return ps.executeUpdate();
+			return pse;
 
 		} catch (SQLException e) {
 			throw new DaoException();
@@ -88,12 +88,12 @@ public class ReservationDao {
 		try (Connection connection = ConnectionManager.getConnection()){
 
 			PreparedStatement ps =
-					connection.prepareStatement(DELETE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS);
+					connection.prepareStatement(DELETE_RESERVATION_QUERY);
 
 
-			PreparedStatement preparedStatement = connection.prepareStatement(DELETE_RESERVATION_QUERY);
-			preparedStatement.setInt(1, id_reservation); // ATTENTION /!\ : l’indice commence par 1, contrairement aux tableaux
-			preparedStatement.execute();
+
+			ps.setInt(1, id_reservation); // ATTENTION /!\ : l’indice commence par 1, contrairement aux tableaux
+			ps.execute();
 
 			ps.execute();
 			if (ps.executeUpdate() != 0) {
