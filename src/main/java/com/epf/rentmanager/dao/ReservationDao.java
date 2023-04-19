@@ -150,7 +150,7 @@ public class ReservationDao {
 		try {
 			Connection connection = ConnectionManager.getConnection();
 			PreparedStatement pstatement = connection.prepareStatement(FIND_RESERVATIONS_BY_VEHICLE_QUERY);
-			pstatement.setLong(3,vehicleId);
+			pstatement.setLong(1,vehicleId);
 			ResultSet rs = pstatement.executeQuery();
 			while (rs.next()) {
 

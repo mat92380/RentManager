@@ -12,6 +12,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,7 +52,8 @@ public class UsersCreateServlet extends HttpServlet{
             response.setContentType("text/plain");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(labelContent);*/
-            boolean erreurage = false;
+
+
 
             String nom = request.getParameter("last_name");
             String prenom = request.getParameter("first_name");
@@ -65,12 +67,16 @@ public class UsersCreateServlet extends HttpServlet{
             client.setNaissance(naissance);
 
 
-            if (ValidateurClient.islegal(client)==true && ValidateurClient.nameisvalid(client)==true){
+           /* boolean mailisvalid = true;
 
-                clientService.create(client);
-                response.sendRedirect("/rentmanager/users");
-                response.setStatus(HttpServletResponse.SC_OK);
-            }
+                Client clientmailtest = clientService.findBymail(client.getEmail());
+                if (clientmailtest.getEmail()==client.getEmail()){
+
+                    mailisvalid= false;
+                }*/
+
+
+
             if  (ValidateurClient.islegal(client)==false ) {
                 //JOptionPane.showMessageDialog(null,"Erreur age","INfobox : "+ "erreur", JOptionPane.INFORMATION_MESSAGE);
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -82,19 +88,19 @@ public class UsersCreateServlet extends HttpServlet{
                 String errorMessage = "nom trop cours\n";
                 response.getWriter().write(errorMessage);
             }
-           /* if  (ValidateurClient.mailisvalid(client)==false ) {
+            if  (ValidateurClient.mailisvalid(client, clientService)==false ) {
+            /*if  (mailisvalid==false ) {*/
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 String errorMessage = "mail deja utilisé";
                 response.getWriter().write(errorMessage);
                 //NE MARCHE PAS
-            }*/
+            } else{
+                clientService.create(client);
+                response.sendRedirect("/rentmanager/users");
+                response.setStatus(HttpServletResponse.SC_OK);
+            }
 
-            /*else {
-                *//*response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                String errorMessage = "Les conditions ne sont pas remplies";
-                response.getWriter().write(errorMessage);*//*
-                response.sendRedirect("/rentmanager/users/create"+ "?erreur=1");
-            }*/
+
 
 
         } catch (ServiceException e) {

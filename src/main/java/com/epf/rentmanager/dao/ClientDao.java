@@ -14,6 +14,7 @@ import java.util.Optional;
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
+import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,9 @@ import org.springframework.stereotype.Repository;
 public class ClientDao {
 
 	private static ClientDao instance = null;
+
 	private ClientDao() {}
-	/*public static ClientDao getInstance() {
-		if(instance == null) {
-			instance = new ClientDao();
-		}
-		return instance;
-	}*/
+
 
 	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";
@@ -93,13 +90,11 @@ public class ClientDao {
 			PreparedStatement ps =
 					 connection.prepareStatement(DELETE_CLIENT_QUERY);
 
-
-
 			ps.setInt(1, id_client); // ATTENTION /!\ : l’indice commence par 1, contrairement aux tableaux
 
 			return ps.executeUpdate();
 
-			/*ps.execute();*/
+
 
 
 		}
@@ -145,8 +140,10 @@ public class ClientDao {
 			String nom = rs.getString("nom");
 			String prenom = rs.getString("prenom");
 			LocalDate naissance = rs.getDate("naissance").toLocalDate();
+			System.out.println(new Client( (int) id, nom, prenom, email, naissance));
 			pstatement.close();
 			connection.close();
+
 			return new Client( (int) id, nom, prenom, email, naissance);
 
 

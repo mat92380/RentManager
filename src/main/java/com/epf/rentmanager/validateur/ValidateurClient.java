@@ -11,8 +11,8 @@ import java.util.List;
 
 @Component
 public class ValidateurClient {
-    @Autowired
-    ClientService clientService;
+    /*@Autowired
+    ClientService clientService;*/
 
 
     public static boolean islegal(Client client){
@@ -28,18 +28,17 @@ public class ValidateurClient {
         }
     }
 
-    /*public static   boolean mailisvalid(Client client){
+    public static boolean mailisvalid(Client client, ClientService clientService){
         boolean mailisvalid = true;
         try{
-            Client clientmailidentique= new Client();
-            List<Client> Listclient= clientService.findAll();
-            clientService.findBymail(client.getEmail());
-            if (clientmailidentique.getEmail()==client.getEmail()){
+            Client clientmailtest = clientService.findBymail(client.getEmail());
+            if (clientmailtest.getEmail()==client.getEmail()){
+                System.out.println("identique");
                 mailisvalid= false;
             }
         }catch (ServiceException e ){
             e.printStackTrace();
         }
         return mailisvalid;
-    }*/
+    }
 }

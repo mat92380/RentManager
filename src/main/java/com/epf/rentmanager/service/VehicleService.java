@@ -5,6 +5,7 @@ import java.util.List;
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
+import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.dao.ClientDao;
 import com.epf.rentmanager.dao.VehicleDao;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 public class VehicleService {
 	@Autowired
 	private VehicleDao vehicleDao;
+	@Autowired
+	private ReservationService reservationService;
 	//public static VehicleService instance;
 	
 	/*private VehicleService() {
@@ -45,6 +48,10 @@ public class VehicleService {
 	public long delete(int vehicle_id) throws ServiceException {
 		// TODO: créer un véhicule
 		try {
+			List<Reservation> listresavehicle = reservationService.findResaByVehicleId(vehicle_id);
+			for(Reservation reservation : listresavehicle) {
+				reservationService.delete(reservation.getId());
+			}
 			return vehicleDao.delete(vehicle_id);
 
 		} catch (DaoException e) {
