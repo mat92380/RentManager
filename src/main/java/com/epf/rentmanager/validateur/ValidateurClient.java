@@ -32,7 +32,7 @@ public class ValidateurClient {
         boolean mailisvalid = true;
         try{
             Client clientmailtest = clientService.findBymail(client.getEmail());
-            if (clientmailtest.getEmail()==client.getEmail()){
+            if (clientmailtest != null && clientmailtest.getEmail()==client.getEmail()){
                 System.out.println("identique");
                 mailisvalid= false;
             }

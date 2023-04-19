@@ -6,6 +6,7 @@ import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.VehicleService;
 import com.epf.rentmanager.utils.IOUtils;
 import com.epf.rentmanager.validateur.ValidateurClient;
+import com.epf.rentmanager.validateur.ValidateurReservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -89,12 +90,16 @@ public class UsersCreateServlet extends HttpServlet{
                 response.getWriter().write(errorMessage);
             }
             if  (ValidateurClient.mailisvalid(client, clientService)==false ) {
-            /*if  (mailisvalid==false ) {*/
+
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 String errorMessage = "mail deja utilisé";
                 response.getWriter().write(errorMessage);
-                //NE MARCHE PAS
-            } else{
+
+            } /*if(response.getStatus()==HttpServletResponse.SC_BAD_REQUEST){
+                String errorMessage = "Merci de retourner à la page précedente et corriger les données saisies\n";
+                response.getWriter().write(errorMessage);
+            }*/
+            else{
                 clientService.create(client);
                 response.sendRedirect("/rentmanager/users");
                 response.setStatus(HttpServletResponse.SC_OK);

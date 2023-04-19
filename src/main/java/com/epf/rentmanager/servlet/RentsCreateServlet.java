@@ -67,15 +67,27 @@ public class RentsCreateServlet extends HomeServlet{
             reservation.setVehicle_id(idvoiture);
             reservation.setDebut(datedebut);
             reservation.setFin(datefin);
-            if(ValidateurReservation.over7days(reservation) == true){
-                reservationService.create(reservation);
-                response.sendRedirect("/rentmanager/rents");
-            }
-            else{
+            if(ValidateurReservation.over7days(reservation) == false ){
 
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                String errorMessage = "location max de 7 jours";
+                String errorMessage = "location max de 7 jours \n";
                 response.getWriter().write(errorMessage);
+            }
+            if(ValidateurReservation.isfree(reservation, reservationService)== false){
+
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                String errorMessage = "la voiture n'est pas disponible à ces dates\n";
+                response.getWriter().write(errorMessage);
+            }
+            if(ValidateurReservation.isfree(reservation, reservationService)== false||ValidateurReservation.over7days(reservation) == false){
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                String errorMessage = "Merci de retourner à la page précedente et corriger les données saisies\n";
+                response.getWriter().write(errorMessage);
+            }
+            else{
+                reservationService.create(reservation);
+                response.sendRedirect("/rentmanager/rents");
+
             }
 
 

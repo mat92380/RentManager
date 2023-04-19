@@ -1,5 +1,6 @@
 package com.epf.rentmanager.validateur;
 
+import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 
 public class ValidateurVehicule {
@@ -11,7 +12,6 @@ public class ValidateurVehicule {
             return false;
         }
     }
-    public static boolean hasrest(Vehicle vehicle){
-        return true;
-    }
+
+
 }

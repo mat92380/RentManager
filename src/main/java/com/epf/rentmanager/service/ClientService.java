@@ -75,6 +75,7 @@ public class ClientService {
 	public Client findBymail(String email) throws ServiceException {
 		// TODO: récupérer un client par son mail
 		try {
+
 			return clientDao.findBymail(email);
 
 		} catch (DaoException e) {

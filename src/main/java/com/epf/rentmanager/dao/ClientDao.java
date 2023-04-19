@@ -132,20 +132,25 @@ public class ClientDao {
 		try {
 			Connection connection = ConnectionManager.getConnection();
 			PreparedStatement pstatement = connection.prepareStatement(FIND_CLIENTBYMAIL_QUERY);
-			pstatement.setString(1,email);
+			pstatement.setString(1, email);
 			ResultSet rs = pstatement.executeQuery();
-			rs.next();
-			int id = rs.getInt("id");
 
-			String nom = rs.getString("nom");
-			String prenom = rs.getString("prenom");
-			LocalDate naissance = rs.getDate("naissance").toLocalDate();
-			System.out.println(new Client( (int) id, nom, prenom, email, naissance));
-			pstatement.close();
-			connection.close();
+			if (rs.next()) {
 
-			return new Client( (int) id, nom, prenom, email, naissance);
+				int id = rs.getInt("id");
+				String nom = rs.getString("nom");
+				String prenom = rs.getString("prenom");
+				LocalDate naissance = rs.getDate("naissance").toLocalDate();
+				System.out.println(new Client((int) id, nom, prenom, email, naissance));
+				pstatement.close();
+				connection.close();
 
+				return new Client((int) id, nom, prenom, email, naissance);
+			}else{
+				pstatement.close();
+				connection.close();
+				return null;
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
