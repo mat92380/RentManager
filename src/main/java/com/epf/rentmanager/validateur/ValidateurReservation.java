@@ -34,8 +34,10 @@ public class ValidateurReservation {
         try {
             reservations = reservationService.findResaByVehicleId(reservation.getVehicle_id());
             for (Reservation ireservation : reservations) {
-                if (ireservation.getFin().until(reservation.getFin(), ChronoUnit.DAYS) > 0 && reservation.getDebut().until(ireservation.getFin(), ChronoUnit.DAYS) > 0 ||
-                        reservation.getFin().until(ireservation.getFin(), ChronoUnit.DAYS) > 0 && ireservation.getDebut().until(reservation.getFin(), ChronoUnit.DAYS) > 0) return false;
+                if ((reservation.getDebut().isAfter(ireservation.getDebut()) && reservation.getDebut().isBefore(ireservation.getFin())) ||
+                        (reservation.getFin().isAfter(ireservation.getDebut()) && reservation.getFin().isBefore(ireservation.getFin())) ||
+                        (reservation.getDebut().isBefore(ireservation.getDebut()) && reservation.getFin().isAfter(ireservation.getFin())))
+                return false;
             }
             return true;
         } catch (ServiceException e) {
