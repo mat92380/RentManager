@@ -44,27 +44,5 @@ public class ValidateurReservation {
         }
     }
 
-    /**
-     * Verifie si la voiture est louer plus de 30 jours d'affilés
-     * @param vehicleId
-     * @param reservationService
-     * @return true si la voiture peut etre louer, false sinon
-     */
-    public static boolean isrentless30days(int vehicleId,ReservationService reservationService) {
-        try {
-            List<Reservation> reservations = reservationService.findResaByVehicleId(vehicleId);
-            reservations.sort((resa1, resa2) -> resa2.getDebut().compareTo(resa1.getDebut()));
-            LocalDate now = LocalDate.now();
-            LocalDate prevDate = now;
-            for (Reservation resa : reservations) {
-                if (resa.getDebut().until(now, ChronoUnit.DAYS) >= 30) return false;
-                if (resa.getFin().until(prevDate, ChronoUnit.DAYS) > 1) return true;
-                prevDate = resa.getDebut();
-            }
-            return true;
-        } catch (ServiceException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+
 }
