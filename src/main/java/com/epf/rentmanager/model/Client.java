@@ -31,7 +31,7 @@ public class Client {
         this.naissance = naissance;
     }
     public Client(){
-        // A modifier peut etre dans clientDao
+
     }
 
     public int getId() {

@@ -25,9 +25,7 @@ public class HomeServlet extends HttpServlet {
 	/**
 	 * 
 	 */
-	//private ClientService clientService = ClientService.getInstance();
-	//private VehicleService vehicleService = VehicleService.getInstance();
-	//private ReservationService reservationService = ReservationService.getInstance();
+
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private ClientService clientService;
@@ -42,7 +40,6 @@ public class HomeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try{
 			request.setAttribute("nbClients", clientService.count() );
 			request.setAttribute("nbVehicles", vehicleService.count());
@@ -51,9 +48,8 @@ public class HomeServlet extends HttpServlet {
 		}catch (ServiceException e ){
 			e.printStackTrace();
 		}
-
 		this.getServletContext().getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
-		//permets de dire qu est ce qu on va envoyer vers la home servlet (homepage)
+
 	}
 
 }

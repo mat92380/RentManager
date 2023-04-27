@@ -14,22 +14,7 @@ import java.time.LocalDate;
 
 public class test {
     public static void main(String[] args){
-        //System.out.println(new Client(12, "matheo","allard","mallard@oxyl", LocalDate.now()));
-        //VehicleService vehicleService = VehicleService.getInstance();
-        /*try{
-            //System.out.println(ClientService.getInstance().findById(2));
-            //System.out.println(ClientService.getInstance().findAll());
-            //System.out.println(ClientService.getInstance().count());
-            //System.out.println(VehicleService.getInstance().findById(2));
-            //System.out.println(VehicleService.getInstance().findAll());
-            //System.out.println(VehicleService.getInstance().count());
-            //System.out.println(ReservationService.getInstance().findAll());
-            //System.out.println(ReservationService.getInstance().findResaByClientId(1));
 
-
-        }catch (ServiceException e){
-            e.printStackTrace();
-        }*/
         ApplicationContext context=new AnnotationConfigApplicationContext(AppConfiguration.class);
         ClientService clientService = context.getBean(ClientService.class);
         VehicleService vehicleService = context.getBean(VehicleService.class);

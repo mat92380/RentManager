@@ -16,16 +16,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-@WebServlet("/users/details")//Quand on va sur /home ca envoie vers la homepage grace à la servlet
+@WebServlet("/users/details")
 public class UsersDetailsServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     @Autowired
     private VehicleService vehicleService;
-
     @Autowired
     private ClientService clientService;
-
     @Autowired
     private ReservationService reservationService;
     @Override
@@ -39,11 +37,7 @@ public class UsersDetailsServlet extends HttpServlet {
         final RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/users/details.jsp");
         try {
              int id = Integer.parseInt(request.getParameter("id").toString());
-            //System.out.println("id"+(id));
-
             final List<Reservation> reservations = reservationService.findResaByClientId(id);
-
-
             final List<Vehicle> vehicles = vehicleService.findByClientId(id);
             request.setAttribute("user", clientService.findById(id));
             request.setAttribute("reservations", reservations);
@@ -58,10 +52,6 @@ public class UsersDetailsServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
-
-
-        //this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/details.jsp").forward(request, response);
-        //permets de dire qu est ce qu on va envoyer vers la home servlet (homepage)
         response.sendRedirect("/rentmanager/users/details");
     }
 }

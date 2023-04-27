@@ -23,9 +23,6 @@ import java.util.ArrayList;
 public class RentsCreateServlet extends HomeServlet{
 
     private static final long serialVersionUID = 1L;
-    /*private VehicleService vehicleService = VehicleService.getInstance();
-    private ClientService clientService = ClientService.getInstance();
-    private ReservationService reservationService = ReservationService.getInstance();*/
     @Autowired
     private VehicleService vehicleService;
     @Autowired
@@ -41,10 +38,8 @@ public class RentsCreateServlet extends HomeServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
-
             request.setAttribute("vehicles", vehicleService.findAll());
             ArrayList<Vehicle> vehicles = new ArrayList<>();
-            //vehicles = vehicleService.findAll()
             request.setAttribute("clients", clientService.findAll());
             System.out.println();
 
@@ -52,11 +47,9 @@ public class RentsCreateServlet extends HomeServlet{
             e.printStackTrace();
         }
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
-        //permets de dire qu est ce qu on va envoyer vers la home servlet (homepage)
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse
             response) throws ServletException, IOException {
-// traitement du formulaire (appel à la méthode de sauvegarde)
         try {
             final Reservation reservation = new Reservation();
             int idclient = Integer.parseInt(request.getParameter("client"));
@@ -68,15 +61,18 @@ public class RentsCreateServlet extends HomeServlet{
             reservation.setDebut(datedebut);
             reservation.setFin(datefin);
             if(ValidateurReservation.over7days(reservation) == false ){
-
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 String errorMessage = "location max de 7 jours \n";
                 response.getWriter().write(errorMessage);
             }
             if(ValidateurReservation.isfree(reservation, reservationService)== false){
-
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 String errorMessage = "la voiture n'est pas disponible à ces dates\n";
+                response.getWriter().write(errorMessage);
+            }
+            if (ValidateurReservation.isrentless30days(idvoiture,reservationService)==false){
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                String errorMessage = "la voiture doit avoir au moins unjour sans réservation par mois\n";
                 response.getWriter().write(errorMessage);
             }
             if(ValidateurReservation.isfree(reservation, reservationService)== false||ValidateurReservation.over7days(reservation) == false){
@@ -84,21 +80,13 @@ public class RentsCreateServlet extends HomeServlet{
                 String errorMessage = "Merci de retourner à la page précedente et corriger les données saisies\n";
                 response.getWriter().write(errorMessage);
             }
+
             else{
                 reservationService.create(reservation);
                 response.sendRedirect("/rentmanager/rents");
-
             }
-
-
-
-
         }catch (ServiceException e ){
             e.printStackTrace();
         }
-
-        //this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
-
     }
-
 }

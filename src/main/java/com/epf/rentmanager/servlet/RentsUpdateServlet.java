@@ -37,22 +37,14 @@ public class RentsUpdateServlet extends HttpServlet {
         final RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/rents/update.jsp");
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-
             request.setAttribute("vehicles", vehicleService.findAll());
             ArrayList<Vehicle> vehicles = new ArrayList<>();
-            //vehicles = vehicleService.findAll()
             request.setAttribute("clients", clientService.findAll());
-
             request.setAttribute("rents", reservationService.findById(id));
-
         } catch (final Exception e) {
             System.out.println(e.getMessage());
         }
         dispatcher.forward(request, response);
-
-        //response.sendRedirect("../cars/update");
-
-        //response.sendRedirect("../users/update");
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -60,7 +52,6 @@ public class RentsUpdateServlet extends HttpServlet {
             final Reservation reservation = new Reservation();
             String idc = request.getParameter("id");
             int id = Integer.parseInt(idc);
-
             int idclient = Integer.parseInt(request.getParameter("client"));
             int idvoiture =  Integer.parseInt(request.getParameter("car"));
             LocalDate datedebut = LocalDate.parse(request.getParameter("begin"));
@@ -70,18 +61,10 @@ public class RentsUpdateServlet extends HttpServlet {
             reservation.setDebut(datedebut);
             reservation.setFin(datefin);
             reservation.setId(id);
-
-
             reservationService.edit(reservation);
-
-
-
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-
-        //this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/details.jsp").forward(request, response);
-        //permets de dire qu est ce qu on va envoyer vers la home servlet (homepage)
         response.sendRedirect("../rents");
     }
 }

@@ -22,7 +22,6 @@ public class Reservation {
         this.fin = fin;
     }
     public Reservation(){
-
     }
 
 

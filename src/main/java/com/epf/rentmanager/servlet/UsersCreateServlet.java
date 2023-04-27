@@ -22,15 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.*;
 
-@WebServlet("/users/create")//Quand on va sur /home ca envoie vers la homepage grace à la servlet
+@WebServlet("/users/create")
 public class UsersCreateServlet extends HttpServlet{
 
     private static final long serialVersionUID = 1L;
-    //private ClientService clientService = ClientService.getInstance();
     @Autowired
     private ClientService clientService;
-
-
     @Override
     public void init() throws ServletException {
         super.init();
@@ -38,46 +35,20 @@ public class UsersCreateServlet extends HttpServlet{
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
-        //permets de dire qu est ce qu on va envoyer vers la home servlet (homepage)
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse
             response) throws ServletException, IOException {
-// traitement du formulaire (appel à la méthode de sauvegarde)
         try {
             final Client client = new Client();
-
-            /*String labelContent = request.getParameter("mssgerreurage");
-            labelContent = labelContent.toUpperCase();
-            response.setContentType("text/plain");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(labelContent);*/
-
-
-
             String nom = request.getParameter("last_name");
             String prenom = request.getParameter("first_name");
             String email = request.getParameter("email");
             LocalDate naissance = LocalDate.parse(request.getParameter("naissance"));
-
-
             client.setNom(nom);
             client.setPrenom(prenom);
             client.setEmail(email);
             client.setNaissance(naissance);
-
-
-           /* boolean mailisvalid = true;
-
-                Client clientmailtest = clientService.findBymail(client.getEmail());
-                if (clientmailtest.getEmail()==client.getEmail()){
-
-                    mailisvalid= false;
-                }*/
-
-
-
             if  (ValidateurClient.islegal(client)==false ) {
                 //JOptionPane.showMessageDialog(null,"Erreur age","INfobox : "+ "erreur", JOptionPane.INFORMATION_MESSAGE);
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -94,24 +65,14 @@ public class UsersCreateServlet extends HttpServlet{
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 String errorMessage = "mail deja utilisé";
                 response.getWriter().write(errorMessage);
-
-            } /*if(response.getStatus()==HttpServletResponse.SC_BAD_REQUEST){
-                String errorMessage = "Merci de retourner à la page précedente et corriger les données saisies\n";
-                response.getWriter().write(errorMessage);
-            }*/
+            }
             else{
                 clientService.create(client);
                 response.sendRedirect("/rentmanager/users");
                 response.setStatus(HttpServletResponse.SC_OK);
             }
-
-
-
-
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        //this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
-        /*response.sendRedirect("/rentmanager/users");*/
     }
     }

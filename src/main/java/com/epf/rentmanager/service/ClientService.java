@@ -19,26 +19,19 @@ public class ClientService {
 	private ClientDao clientDao;
 	@Autowired
 	private ReservationService reservationService;
-	//public static ClientService instance;
 
-
-	/*private ClientService() {
-		this.clientDao = ClientDao.getInstance();
-	}*/
 	private ClientService(ClientDao clientDao){
 		this.clientDao = clientDao;}
 
 	public ClientService(){
 		}
-	/*public static ClientService getInstance() {
-		if (instance == null) {
-			instance = new ClientService();
-		}
-		
-		return instance;
-	}*/
-	
-	
+
+	/**
+	 * Permets de creer un client
+	 * @param client
+	 * @return
+	 * @throws DaoException
+	 */
 	public long create(Client client) throws ServiceException {
 		// TODO: créer un client
 		try {
@@ -48,41 +41,53 @@ public class ClientService {
 			e.printStackTrace();
 			throw new ServiceException();
 		}
-
 	}
+	/**
+	 * Permets de modifier un client
+	 * @param client
+	 * @return
+	 * @throws DaoException
+	 */
 	public long edit(Client client) throws ServiceException {
 		// TODO: mettre à jour un client
 		try {
 			return clientDao.edit(client);
-
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new ServiceException();
 		}
-
 	}
 
 	public Client findById(long id) throws ServiceException {
 		// TODO: récupérer un client par son id
 		try {
 			return clientDao.findById(id);
-
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new ServiceException();
 		}
 	}
+	/**
+	 * Permets de trouver un client grace à son email
+	 * @param email
+	 * @return le client recherché
+	 * @throws DaoException
+	 */
 	public Client findBymail(String email) throws ServiceException {
 		// TODO: récupérer un client par son mail
 		try {
-
 			return clientDao.findBymail(email);
-
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new ServiceException();
 		}
 	}
+	/**
+	 * Permets de supprimer un client et les réservations associés
+	 * @param id_client
+	 * @return
+	 * @throws DaoException
+	 */
 	public long delete(int id_client) throws ServiceException {
 			// TODO: supprimer un client
 		try {
@@ -95,24 +100,30 @@ public class ClientService {
 			e.printStackTrace();
 			throw new ServiceException();
 		}
-
 	}
-
+	/**
+	 * Permets de donner une liste de tous les clients
+	 * @return l'ensemble des clients
+	 * @throws DaoException
+	 */
 	public List<Client> findAll() throws ServiceException {
 		// TODO: récupérer tous les clients
 		try {
 			return clientDao.findAll();
-
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new ServiceException();
 		}
 	}
 
+	/**
+	 * Permets de compter le nombre client
+	 * @return le nombre de client
+	 * @throws ServiceException
+	 */
 	public int count() throws ServiceException {
-		//int counter =0;
+		// TODO: Compte le nombre clients
 		List<Client> clients = this.findAll();
-		//System.out.println(clients.size());
 		return clients.size();
 	}
 }

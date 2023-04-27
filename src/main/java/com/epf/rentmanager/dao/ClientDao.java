@@ -33,125 +33,122 @@ public class ClientDao {
 	private static final String FIND_CLIENTBYMAIL_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client WHERE email=?;";
 	private static final String FIND_CLIENTS_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client;";
 	private static final String UPDATE_CLIENT_QUERY = "UPDATE Client SET nom=?, prenom=?, email=?, naissance=? WHERE id=?;";
-	
+
+	/**
+	 * Permets de creer un client
+	 * @param client
+	 * @return
+	 * @throws DaoException
+	 */
 	public long create(Client client) throws DaoException {
-		try {
-			Connection connection = ConnectionManager.getConnection();
-			PreparedStatement ps =
-					connection.prepareStatement(CREATE_CLIENT_QUERY,Statement.RETURN_GENERATED_KEYS);
+		try (Connection connection = ConnectionManager.getConnection();
+			 PreparedStatement ps =
+					 connection.prepareStatement(CREATE_CLIENT_QUERY,Statement.RETURN_GENERATED_KEYS)){
 
 			ps.setString(1, client.getNom());
 			ps.setString(2, client.getPrenom());
 			ps.setString(3, client.getEmail());
 			ps.setDate(4, Date.valueOf(client.getNaissance()));
-
-
 			ps.execute();
 			ResultSet resultSet = ps.getGeneratedKeys();
 			int id = 0;
 			if (resultSet.next()) {
 				id = resultSet.getInt(1);
 			}
-			ps.close();
-			connection.close();
 			return id;
 		} catch (SQLException e) {
 			throw new DaoException();
 		}
 
 	}
-	public long edit(Client client) throws DaoException {
-		try {
-			Connection connection = ConnectionManager.getConnection();
-			PreparedStatement ps =
-					connection.prepareStatement(UPDATE_CLIENT_QUERY);
 
+	/**
+	 * Permets de modifier un client
+	 * @param client
+	 * @return
+	 * @throws DaoException
+	 */
+	public long edit(Client client) throws DaoException {
+		try (Connection connection = ConnectionManager.getConnection();
+			 PreparedStatement ps =
+					 connection.prepareStatement(UPDATE_CLIENT_QUERY)){
 			ps.setString(1, client.getNom());
 			ps.setString(2, client.getPrenom());
 			ps.setString(3, client.getEmail());
 			ps.setDate(4, Date.valueOf(client.getNaissance()));
 			ps.setInt(5,client.getId());
-
 			long pse = ps.executeUpdate();
-
-			ps.close();
-			connection.close();
 			return pse;
 
 		} catch (SQLException e) {
 			throw new DaoException();
 		}
-
 	}
-	
+
+	/**
+	 * Permets de supprimer un client
+	 * @param id_client
+	 * @return
+	 * @throws DaoException
+	 */
 	public long delete(int id_client) throws DaoException {
-		try {
-			Connection connection = ConnectionManager.getConnection();
-			PreparedStatement ps =
-					 connection.prepareStatement(DELETE_CLIENT_QUERY);
+		try (Connection connection = ConnectionManager.getConnection();
+			 PreparedStatement ps =
+					 connection.prepareStatement(DELETE_CLIENT_QUERY)){
 
-			ps.setInt(1, id_client); // ATTENTION /!\ : l’indice commence par 1, contrairement aux tableaux
-
+			ps.setInt(1, id_client);
 			return ps.executeUpdate();
-
-
-
-
 		}
 		catch (SQLException e) {
 			throw new DaoException();
 		}
-
-
 	}
 
+	/**
+	 * Permets de trouver un client grace à son id
+	 * @param id
+	 * @return le client recherché
+	 * @throws DaoException
+	 */
 	public Client findById(long id) throws DaoException {
-		try {
-			Connection connection = ConnectionManager.getConnection();
-			PreparedStatement pstatement = connection.prepareStatement(FIND_CLIENT_QUERY);
+		try (Connection connection = ConnectionManager.getConnection();
+			 PreparedStatement pstatement = connection.prepareStatement(FIND_CLIENT_QUERY)){
 			pstatement.setLong(1,id);
 			ResultSet rs = pstatement.executeQuery();
 			rs.next();
-				//int id = rs.getInt("id");
 				String nom = rs.getString("nom");
 				String prenom = rs.getString("prenom");
 				String email = rs.getString("email");
 				LocalDate naissance = rs.getDate("naissance").toLocalDate();
-				pstatement.close();
-				connection.close();
 				return new Client( (int) id, nom, prenom, email, naissance);
-
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DaoException();
-
 		}
 	}
+
+	/**
+	 * Permets de trouver un client à partir de son mail
+	 * @param email
+	 * @return le client recherché
+	 * @throws DaoException
+	 */
 	public Client findBymail(String email) throws DaoException {
-		try {
-			Connection connection = ConnectionManager.getConnection();
-			PreparedStatement pstatement = connection.prepareStatement(FIND_CLIENTBYMAIL_QUERY);
+		try (Connection connection = ConnectionManager.getConnection();
+			 PreparedStatement pstatement = connection.prepareStatement(FIND_CLIENTBYMAIL_QUERY)) {
 			pstatement.setString(1, email);
 			ResultSet rs = pstatement.executeQuery();
-
 			if (rs.next()) {
-
 				int id = rs.getInt("id");
 				String nom = rs.getString("nom");
 				String prenom = rs.getString("prenom");
 				LocalDate naissance = rs.getDate("naissance").toLocalDate();
-				System.out.println(new Client((int) id, nom, prenom, email, naissance));
-				pstatement.close();
-				connection.close();
-
 				return new Client((int) id, nom, prenom, email, naissance);
 			}else{
 				pstatement.close();
 				connection.close();
 				return null;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DaoException();
@@ -159,11 +156,15 @@ public class ClientDao {
 		}
 	}
 
+	/**
+	 * Permets de donner une liste de tous les clients
+	 * @return l'ensemble des clients
+	 * @throws DaoException
+	 */
 	public List<Client> findAll() throws DaoException {
 		List<Client> clients = new ArrayList<Client>();
-		try {
-			Connection connection = ConnectionManager.getConnection();
-			Statement statement = connection.createStatement();
+		try (Connection connection = ConnectionManager.getConnection();
+			 Statement statement = connection.createStatement()){
 			ResultSet rs = statement.executeQuery(FIND_CLIENTS_QUERY);
 			while (rs.next()) {
 				int id = rs.getInt("id");
@@ -173,14 +174,11 @@ public class ClientDao {
 				LocalDate naissance = rs.getDate("naissance").toLocalDate();
 				clients.add(new Client(id, nom,prenom,email,naissance));
 			}
-			statement.close();
-			connection.close();
+
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new DaoException();
-
 		}
-
 		return clients;
 	}
 
