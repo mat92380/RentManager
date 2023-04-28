@@ -65,9 +65,10 @@ public class ValidateurReservation {
             for (int i = 0; i < 31; i++) {
                 LocalDate dateToCheck = firstDate.plusDays(i);
                 boolean isReserved = false;
-                for (Reservation listeReservation : reservations) {
-                    if ((listeReservation.getDebut().isBefore(dateToCheck) || listeReservation.getDebut().isEqual(dateToCheck))
-                            && (listeReservation.getFin().isAfter(dateToCheck) || listeReservation.getFin().isEqual(dateToCheck))) {
+                for (Reservation ireservation : reservations) {
+                    if ((newReservation.getDebut().isAfter(ireservation.getDebut()) && newReservation.getDebut().isBefore(ireservation.getFin())) ||
+                            (newReservation.getFin().isAfter(ireservation.getDebut()) && newReservation.getFin().isBefore(ireservation.getFin())) ||
+                            (newReservation.getDebut().isBefore(ireservation.getDebut()) && newReservation.getFin().isAfter(ireservation.getFin()))) {
                         isReserved = true;
                         break;
                     }
