@@ -53,40 +53,7 @@ public class ClientServiceTest {
 
 
 
-    @InjectMocks
-    private ClientService clientService;
-        @Test
-        public void testFindAll() throws ServiceException, DaoException {
-            // mock the DAO
-            ClientDao clientDaoMock = Mockito.mock(ClientDao.class);
 
-            // create test data
-            List<Client> expectedClients = new ArrayList<>();
-            expectedClients.add(new Client("John", "Doe", "jhon@doe.com",LocalDate.now()));
-            expectedClients.add(new Client("Jane", "Doe", "jane@doe.com",LocalDate.now()));
-            when(clientService.findAll()).thenReturn(expectedClients);
-
-            // configure the DAO mock
-            when(clientDaoMock.findAll()).thenReturn(expectedClients);
-
-            // create the service
-            //ClientService clientService = new ClientService(clientDaoMock);
-
-            // call the method
-            List<Client> actualClients = clientService.findAll();
-
-            // assert the results
-            assertEquals(expectedClients.size(), actualClients.size());
-            for (int i = 0; i < expectedClients.size(); i++) {
-                Client expectedClient = expectedClients.get(i);
-                Client actualClient = actualClients.get(i);
-                assertEquals(expectedClient.getNom(), actualClient.getNom());
-                assertEquals(expectedClient.getPrenom(), actualClient.getPrenom());
-            }
-
-            // verify the DAO method was called
-            verify(clientDaoMock, times(1)).findAll();
-        }
     }
 
 

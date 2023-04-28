@@ -7,6 +7,8 @@ import com.epf.rentmanager.service.ReservationService;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ValidateurReservation {
@@ -46,5 +48,46 @@ public class ValidateurReservation {
         }
     }
 
+    /**
+     * Fonction qui permest de vérifier si la voiture que l'on veut louer dispose bien d'un jour de disponible dans les 30 jours
+     * @param newReservation
+     * @param reservationService
+     * @return true si peut louer la voiture false sinon
+     */
+    public static boolean isrent30days(Reservation newReservation, ReservationService reservationService){
+        try {
+            List<Reservation> reservations = reservationService.findResaByVehicleId(newReservation.getVehicle_id());
+            reservations.add(newReservation);
+            Collections.sort(reservations, Comparator.comparing(Reservation::getDebut));
+            LocalDate firstDate = reservations.get(0).getDebut();
+            boolean isAvailableFor30Days = true;
+            int cpt = 0;
+            for (int i = 0; i < 31; i++) {
+                LocalDate dateToCheck = firstDate.plusDays(i);
+                boolean isReserved = false;
+                for (Reservation listeReservation : reservations) {
+                    if ((listeReservation.getDebut().isBefore(dateToCheck) || listeReservation.getDebut().isEqual(dateToCheck))
+                            && (listeReservation.getFin().isAfter(dateToCheck) || listeReservation.getFin().isEqual(dateToCheck))) {
+                        isReserved = true;
+                        break;
+                    }
+                }
+                if (!isReserved) {
+                    cpt = 0;
+                } else {
+                    cpt++;
+                    if (cpt > 30) {
+                        isAvailableFor30Days = false;
+                        break;
+                    }
+                }
+            }
+            return isAvailableFor30Days;}
+        catch(ServiceException e) {
+            e.printStackTrace();
+            return false;
+
+        }
+    }
 
 }

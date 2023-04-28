@@ -70,12 +70,17 @@ public class RentsCreateServlet extends HomeServlet{
                 String errorMessage = "la voiture n'est pas disponible à ces dates\n";
                 response.getWriter().write(errorMessage);
             }
-
+            if(ValidateurReservation.isrent30days(reservation, reservationService)== false){
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                String errorMessage = "la voiture doit avoir au moins un jour de diponible sur le mois\n";
+                response.getWriter().write(errorMessage);
+            }
             if(ValidateurReservation.isfree(reservation, reservationService)== false||ValidateurReservation.over7days(reservation) == false){
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 String errorMessage = "Merci de retourner à la page précedente et corriger les données saisies\n";
                 response.getWriter().write(errorMessage);
             }
+
 
             else{
                 reservationService.create(reservation);
