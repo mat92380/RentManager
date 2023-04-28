@@ -59,11 +59,9 @@ public class ValidateurReservation {
             List<Reservation> reservations = reservationService.findResaByVehicleId(newReservation.getVehicle_id());
             reservations.add(newReservation);
             Collections.sort(reservations, Comparator.comparing(Reservation::getDebut));
-            LocalDate firstDate = reservations.get(0).getDebut();
             boolean isAvailableFor30Days = true;
             int cpt = 0;
             for (int i = 0; i < 31; i++) {
-                LocalDate dateToCheck = firstDate.plusDays(i);
                 boolean isReserved = false;
                 for (Reservation ireservation : reservations) {
                     if ((newReservation.getDebut().isAfter(ireservation.getDebut()) && newReservation.getDebut().isBefore(ireservation.getFin())) ||
